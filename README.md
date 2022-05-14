@@ -1,7 +1,8 @@
-# Flying plane SDL2 animation
+# Space Invaders
 
+## Description
 This project is written in C and uses [CMake][] as a build system.<br>
-It shows how we can make a basic animation using [SDL2][SDL] : Flying plane.
+It shows how we can make a basic arcade game using [SDL2][SDL].
 
 
 It could be used as a base for any SDL2 game. Just fork it, clone it and
@@ -34,52 +35,39 @@ sudo apt install git build-essential pkg-config cmake cmake-data libsdl2-dev lib
 ```sh
 sudo apt install libsdl2-ttf-dev libsdl2-net-dev libsdl2-mixer-dev
 ```
+## Contribution
 
-## Build instructions
+Thank you for your interest in our project. There are many ways to contribute,
+and we appreciate all of them :
 
-```sh
-# Clone this repo
-git clone https://gitlab.com/aminosbh/flying-plane-sdl-animation.git
-cd flying-plane-sdl-animation
+- Source code
+- Unit tests
+- Bug Reports
+- Documentation
+- Localization (Translation)
+- etc
 
-# Create a build folder
-mkdir build
-cd build
+Contributions should be under the terms of the MIT license [&lt;LICENSE&gt;](LICENSE).
 
-# Build
-cmake ..
-make
-
-# Run
-./flying-plane-sdl-animation
-```
-
-***Note:*** To use SDL2_ttf, SDL2_net or SDL2_mixer, you should uncomment some
-instructions in the CMakeLists.txt file and re-execute the `make` command.
+## How to build
+ See [BUILD.md](BUILD.md)
 
 ### Open the project with an IDE under Linux
 
 See [IDE_USAGE.md](IDE_USAGE.md) for details.
 
-## License
+## Authors / Contributors
 
-Author: Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)
+The project was originally developed by:
+ Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)
+ Youssef Aydi [@youssef-aydi](https://github.com/youssef-aydi)
+ Aymen Hammami [@aymendps](https://github.com/aymendps)
+ Aziz Maazouz [@aziz-maazouz](https://github.com/aziz-maazouz)
+
+## License
 
 This project is distributed under the terms of the MIT license
 [&lt;LICENSE&gt;](LICENSE).
-
-
-The images under the assets directory are distributed under different licenses:
-
-- `plane.png` and `plane-shadow.png`:<br>
-  Author: Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)<br>
-  License: [Creative Commons Attribution 4.0 International License.][CCBY]
-
-- `ocean.jpg`:<br>
-  Author: [the3rdSequence.com](https://www.the3rdsequence.com)<br>
-  License: [Creative Commons Attribution 4.0 International License.][CCBY]<br>
-  Site: https://www.the3rdsequence.com/texturedb/texture/23/sea+water
-
 
 
 [SDL]: https://www.libsdl.org

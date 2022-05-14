@@ -44,7 +44,7 @@ sudo apt install codeblocks
 
 ```sh
 # Create a folder for the Code::Blocks project
-cd flying-plane-sdl-animation
+cd Space_Invaders
 mkdir -p build/codeblocks
 cd build/codeblocks
 
@@ -53,7 +53,7 @@ cmake ../.. -G "CodeBlocks - Unix Makefiles"
 ```
 
 *Open the project:*<br>
-Run Code::Blocks, and open the project in `flying-plane-sdl-animation/build/codeblocks`.<br>
+Run Code::Blocks, and open the project in `Space_Invaders/build/codeblocks`.<br>
 Finally, build and run the project.
 
 
@@ -72,15 +72,15 @@ Offline package: https://www.eclipse.org/downloads/packages
 
 ```sh
 # Create a folder for the Eclipse project outside this project
-cd flying-plane-sdl-animation
-mkdir ../eclipse-flying-plane-sdl-animation
-cd ../eclipse-flying-plane-sdl-animation
+cd Space_Invaders
+mkdir ../eclipse-Space_Invaders
+cd ../eclipse-Space_Invaders
 
 # Generate an Eclipse project
-cmake ../flying-plane-sdl-animation -G "Eclipse CDT4 - Unix Makefiles"
+cmake ../Space_Invaders -G "Eclipse CDT4 - Unix Makefiles"
 ```
 *Open the project:*<br>
-Run Eclipse, and open the project in `eclipse-flying-plane-sdl-animation`.<br>
+Run Eclipse, and open the project in `eclipse-Space_Invaders`.<br>
 Create a new run configuration: Go to `Run` &gt; `Run configurations` &gt;
 `C\C++ Application` and specify the C/C++ Application using `Search Project...`<br>
 Finally, build and run the project.

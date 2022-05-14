@@ -1,5 +1,6 @@
 # Space Invaders
 
+## Description
 This project is written in C and uses [CMake][] as a build system.<br>
 It shows how we can make a basic arcade game using [SDL2][SDL].
 
@@ -64,8 +65,6 @@ The project was originally developed by:
  Aziz Maazouz [@aziz-maazouz](https://github.com/aziz-maazouz)
 
 ## License
-
-Author: 
 
 This project is distributed under the terms of the MIT license
 [&lt;LICENSE&gt;](LICENSE).

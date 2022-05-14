@@ -3,6 +3,8 @@
 ## Description
 This project is written in C and uses [CMake][] as a build system.<br>
 It shows how we can make a basic arcade game using [SDL2][SDL].
+![Untitled](https://user-images.githubusercontent.com/77480931/168448196-2734f444-ff3b-43b0-af27-ad0b848ae157.png)
+![Untitled1](https://user-images.githubusercontent.com/77480931/168448203-6ee0ce89-0544-4435-8b33-136f36632633.png)
 
 
 It could be used as a base for any SDL2 game. Just fork it, clone it and

@@ -55,12 +55,17 @@ Contributions should be under the terms of the MIT license [&lt;LICENSE&gt;](LIC
 
 See [IDE_USAGE.md](IDE_USAGE.md) for details.
 
+## Authors / Contributors
+
+The project was originally developed by:
+ Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)
+ Youssef Aydi [@youssef-aydi](https://github.com/youssef-aydi)
+ Aymen Hammami [@aymendps](https://github.com/aymendps)
+ Aziz Maazouz [@aziz-maazouz](https://github.com/aziz-maazouz)
+
 ## License
 
-Author: Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)
-        Youssef Aydi [@youssef-aydi](https://github.com/youssef-aydi)
-        Aymen Hammami [@aymendps](https://github.com/aymendps)
-        Aziz Maazouz [@aziz-maazouz](https://github.com/aziz-maazouz)
+Author: 
 
 This project is distributed under the terms of the MIT license
 [&lt;LICENSE&gt;](LICENSE).

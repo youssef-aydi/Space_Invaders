@@ -36,7 +36,7 @@ sudo apt install libsdl2-ttf-dev libsdl2-net-dev libsdl2-mixer-dev
 ```
 
 ## How to build
-
+ See [BUILD.md](BUILD.md)
 
 ### Open the project with an IDE under Linux
 

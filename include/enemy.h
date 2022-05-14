@@ -28,32 +28,47 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef ENEMY_H
+#define ENEMY_H
+#include "utils.h"
+#include "image.h"
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+typedef struct Animation Animation;
+struct Enemy
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Enemy
+    Image image;
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool destroyed;
+
+    int initialx;
+    int initialy;
+    int addery;
+
+
+};
+typedef struct Enemy Enemy;
+
+
+bool Enemy_load(SDL_Renderer *renderer, Enemy *enemy, const char *image);
+void Enemy_destroy(Enemy *enemy);
+
+void Enemy_setX(Enemy *enemy, int x);
+void Enemy_setY(Enemy *enemy, int y);
+void Enemy_setCoordinates(Enemy *enemy, int x, int y);
+void Enemy_roaming(Enemy *enemy);
+void Enemy_moveX(Enemy *enemy, int x);
+void Enemy_move(Enemy *enemy, int framerate);
+//void Enemy_respawn(Enemy *enemy, Animation *animation);
+void Enemy_render(SDL_Renderer *renderer, Enemy *enemy);
+
+#endif // ENEMY_H

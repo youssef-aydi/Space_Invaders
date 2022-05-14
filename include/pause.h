@@ -28,32 +28,45 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef PAUSE_H
+#define PAUSE_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
+#include <time.h>
+#include <windows.h>
+typedef struct Animation Animation;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Pause
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Pause
+    Image image[3];
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool shown;
+    bool image1;
+    bool image2;
+    bool image3;
+
+    Mix_Chunk *pausesound;
+
+
+};
+typedef struct Pause Pause;
+
+bool Pause_load(SDL_Renderer *renderer, Pause *pause, const char *image1, const char *image2, const char *image3);
+void Pause_destroy(Pause *pause);
+void Pause_setX(Pause *pause, int x1);
+void Pause_setY(Pause *pause, int y1);
+void Pause_setCoordinates(Pause *pause, int x1, int y1);
+void Pause_render(SDL_Renderer *renderer, Pause *pause);
+
+#endif // Pause_H

@@ -28,32 +28,52 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef BULLET2_H
+#define BULLET2_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
+typedef struct Animation Animation;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Bullet2
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Bullet2
+    Image image;
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool shown;
+
+    Mix_Chunk *bulletsound;
+    Mix_Chunk *enemydeathsound;
+    int first;
+    bool wrongpress;
+
+};
+typedef struct Bullet2 Bullet2;
+
+
+bool Bullet2_load(SDL_Renderer *renderer, Bullet2 *bullet2, const char *image);
+void Bullet2_destroy(Bullet2 *bullet2);
+
+void Bullet2_setX(Bullet2 *bullet2, int x);
+void Bullet2_setY(Bullet2 *bullet2, int y);
+void Bullet2_setCoordinates(Bullet2 *bullet2, int x, int y);
+
+void Bullet2_moveY(Bullet2 *bullet2, int y);
+
+void Bullet2_move(Bullet2 *bullet2, int framerate, Animation *animation);
+
+void Bullet2_setDirection(Bullet2 *bullet2, SDL_Keycode keycode);
+void Bullet2_unsetDirection(Bullet2 *bullet2, SDL_Keycode keycode);
+
+void Bullet2_render(SDL_Renderer *renderer, Bullet2 *bullet2);
+
+#endif // Bullet2_H

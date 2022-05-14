@@ -28,19 +28,23 @@
  *
  */
 
-#ifndef PLANE_H
-#define PLANE_H
-#define ULTIMATE_RANGE   75  //Ultimate Difficulty: SMALLER---->HARDER
+#ifndef bossattack_H
+#define bossattack_H
+#define ULTIMATE_COOLDOWN 100 // Ultimate Difficulty: SMALLER---->FASTER
+#define HEART_NUM 5
 
 #include "utils.h"
 #include "image.h"
-#include "defeat.h"
+#include "plane.h"
 #include "ultimate.h"
-#include <SDL_mixer.h>
+#include "victory.h"
+#include "heart.h"
 
-struct Plane
+typedef struct Animation Animation;
+
+struct Bossattack
 {
-    // Plane
+    // Bossattack
     Image image;
 
     // Direction
@@ -52,36 +56,32 @@ struct Plane
     // Margin
     int margin;
 
-    int score;
+    bool shown;
 
-    int hp;
+    int counter;
 
-    int planecounter;
-
-    bool destroyed;
-
+    int fix;
 
 
 
 };
-typedef struct Plane Plane;
+typedef struct Bossattack Bossattack;
 
 
-bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image);
-void Plane_destroy(Plane *plane);
+bool Bossattack_load(SDL_Renderer *renderer, Bossattack *bossattack, const char *image);
+void Bossattack_destroy(Bossattack *bossattack);
 
-void Plane_setX(Plane *plane, int x);
-void Plane_setY(Plane *plane, int y);
-void Plane_AI(Plane *plane, Defeat *defeat);
-void Plane_setCoordinates(Plane *plane, int x, int y);
+void Bossattack_setX(Bossattack *bossattack, int x);
+void Bossattack_setY(Bossattack *bossattack, int y);
+void Bossattack_setCoordinates(Bossattack *bossattack, int x, int y);
+void Bossattack_limits(Bossattack *bossattack, Plane *plane, int x1, int x2, int x3, Ultimate *ultimate, Victory *victory, Defeat *defeat);
+void Bossattack_moveY(Bossattack*bossattack, int y);
 
-void Plane_moveX(Plane *plane, int x);
+void Bossattack_move(Bossattack *bossattack, Plane *plane, int framerate, Animation *animation);
+void Ultimate_enable(Bossattack *bossattack, Ultimate *ultimate);
+void Ultimate_disable(Bossattack *bossattack, Ultimate *ultimate, Plane *plane);
+void Ultimate_relationship(Bossattack *bossattack, Ultimate *ultimate, Plane *plane, Victory *victory, Defeat *defeat);
+void Bossattack_render(SDL_Renderer *renderer, Bossattack *bossattack);
 
-void Plane_move(Plane *plane, Ultimate *ultimate, Defeat *defeat, int screenWidth, int framerate, Animation *animation);
 
-void Plane_setDirection(Plane *plane, SDL_Keycode keycode);
-void Plane_unsetDirection(Plane *plane, SDL_Keycode keycode);
-
-void Plane_render(SDL_Renderer *renderer, Plane *plane);
-
-#endif // PLANE_H
+#endif // bossattack_H

@@ -28,32 +28,50 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef ULTIMATE_H
+#define ULTIMATE_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
 
-#include <stdio.h>
-#include <stdbool.h>
+typedef struct Animation Animation;
+typedef struct Bossattack Bossattack;
+typedef struct Boss Boss;
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Ultimate
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Ultimate
+    Image image[2];
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool shown;
+    bool image1;
+    bool image2;
+
+    Mix_Chunk *ultimatesound;
+    int succ;
+
+
+};
+typedef struct Ultimate Ultimate;
+
+
+bool Ultimate_load(SDL_Renderer *renderer, Ultimate *ultimate, const char *image1, const char *image2);
+void Ultimate_destroy(Ultimate *ultimate);
+void Ultimate_setX(Ultimate *ultimate, int x);
+void Ultimate_setY(Ultimate *ultimate, int y);
+void Ultimate_setCoordinates(Ultimate *ultimate, int x, int y/*, Animation *animation*/);
+void Ultimate_render(SDL_Renderer *renderer, Ultimate *ultimate);
+void Ultimate_moveX(Ultimate *ultimate, int x);
+void Ultimate_moveY(Ultimate *ultimate, int y);
+void Ultimate_move(Ultimate *ultimate, Boss *boss/*, int screenWidth*/, int framerate);
+
+#endif // Ultimate_H

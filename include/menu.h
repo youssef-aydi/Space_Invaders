@@ -28,32 +28,39 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef MENU_H
+#define MENU_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
+typedef struct Animation Animation;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Menu
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Menu
+    Image image;
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    Mix_Chunk *menusong;
+
+
+};
+typedef struct Menu Menu;
+
+
+bool Menu_load(SDL_Renderer *renderer, Menu *menu, const char *image);
+void Menu_destroy(Menu *menu);
+void Menu_setX(Menu *menu, int x);
+void Menu_setY(Menu *menu, int y);
+void Menu_setCoordinates(Menu *menu, int x, int y);
+void Menu_render(SDL_Renderer *renderer, Menu *menu, Animation *animation);
+
+#endif // Menu_H

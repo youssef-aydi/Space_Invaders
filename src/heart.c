@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Amine Ben Hassouna <amine.benhassouna@gmail.com>
+ * Copyright (c) 2022 Amine Ben Hassouna <amine.benhassouna@gmail.com> Youssef Aydi <youssef.aydi@medtech.tn> Aymen Hammami <hammami.aym@outlook.com> Aziz Maazouz <aziz.maazouz@medtech.tn>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any
@@ -28,32 +28,49 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#include "heart.h"
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+bool Heart_load(SDL_Renderer *renderer, Heart *heart, const char *image)
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Load heart image
+    if(!Image_load(renderer, &heart->image, image))
+    {
+        return false;
 
-#endif // UTILS_H
+    }
+    heart->destroyed=false;
+    return true;
+}
+
+void Heart_destroy(Heart *heart)
+{
+    Image_destroy(&heart->image);
+
+}
+
+void Heart_setX(Heart *heart, int x)
+{
+    // Heart x coordinate
+    heart->image.rect.x = x;
+}
+
+void Heart_setY(Heart *heart, int y)
+{
+    // Heart y coordinate
+    heart->image.rect.y = y;
+}
+
+void Heart_setCoordinates(Heart *heart, int x, int y)
+{
+    Heart_setX(heart, x);
+    Heart_setY(heart, y);
+}
+void Heart_render(SDL_Renderer *renderer, Heart *heart)
+{
+    if(heart->destroyed==false)
+    {
+    // Render heart
+    Image_render(renderer, &heart->image);
+    }
+}
+

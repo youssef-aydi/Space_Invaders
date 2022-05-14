@@ -28,32 +28,40 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef DEFEAT_H
+#define DEFEAT_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
+typedef struct Animation Animation;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Defeat
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Defeat
+    Image image;
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool shown;
+
+    Mix_Chunk *planedeathsound;
+
+};
+typedef struct Defeat Defeat;
+
+
+bool Defeat_load(SDL_Renderer *renderer, Defeat *defeat, const char *image);
+void Defeat_destroy(Defeat *defeat);
+void Defeat_setX(Defeat *defeat, int x);
+void Defeat_setY(Defeat *defeat, int y);
+void Defeat_setCoordinates(Defeat *defeat, int x, int y);
+void Defeat_render(SDL_Renderer *renderer, Defeat *defeat);
+
+#endif // Defeat_H

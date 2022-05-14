@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Amine Ben Hassouna <amine.benhassouna@gmail.com>
+ * Copyright (c) 2022 Amine Ben Hassouna <amine.benhassouna@gmail.com> Youssef Aydi <youssef.aydi@medtech.tn> Aymen Hammami <hammami.aym@outlook.com> Aziz Maazouz <aziz.maazouz@medtech.tn>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any
@@ -28,32 +28,51 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
+#include "menu.h"
+#include "animation.h"
+#include <SDL_mixer.h>
 
 
-enum Direction
+bool Menu_load(SDL_Renderer *renderer, Menu *menu, const char *image)
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Load menu image
+    if(!Image_load(renderer, &menu->image, image))
+    {
+        return false;
+    }
 
-#endif // UTILS_H
+    return true;
+}
+
+void Menu_destroy(Menu *menu)
+{
+    Image_destroy(&menu->image);
+
+}
+
+void Menu_setX(Menu *menu, int x)
+{
+    // Menu x coordinate
+    menu->image.rect.x = x;
+}
+
+void Menu_setY(Menu *menu, int y)
+{
+    // Menu y coordinate
+    menu->image.rect.y = y;
+}
+
+void Menu_setCoordinates(Menu *menu, int x, int y)
+{
+   Menu_setX(menu, x);
+   Menu_setY(menu, y);
+}
+void Menu_render(SDL_Renderer *renderer, Menu *menu, Animation *animation)
+{
+    if(animation->start==false)
+    {
+        // Render menu
+        Image_render(renderer, &menu->image);
+    }
+
+}

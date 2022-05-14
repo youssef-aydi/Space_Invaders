@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Amine Ben Hassouna <amine.benhassouna@gmail.com>
+ * Copyright (c) 2022 Amine Ben Hassouna <amine.benhassouna@gmail.com> Youssef Aydi <youssef.aydi@medtech.tn> Aymen Hammami <hammami.aym@outlook.com> Aziz Maazouz <aziz.maazouz@medtech.tn>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any
@@ -29,8 +29,9 @@
  */
 
 #include "plane.h"
+#include "animation.h"
 
-bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image, const char *shadow)
+bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image)
 {
     // Load plane image
     if(!Image_load(renderer, &plane->image, image))
@@ -38,12 +39,8 @@ bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image, const c
         return false;
     }
 
-    // Load plane shadow
-    if(!Image_load(renderer, &plane->shadow, shadow))
-    {
-        Image_destroy(&plane->image);
-        return false;
-    }
+    plane->destroyed=false;
+    plane->planecounter=-1;
 
     return true;
 }
@@ -51,7 +48,6 @@ bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image, const c
 void Plane_destroy(Plane *plane)
 {
     Image_destroy(&plane->image);
-    Image_destroy(&plane->shadow);
 }
 
 void Plane_setX(Plane *plane, int x)
@@ -59,10 +55,7 @@ void Plane_setX(Plane *plane, int x)
     // Plane x coordinate
     plane->image.rect.x = x;
 
-    // Plane shadow x coordinate
-    plane->shadow.rect.x = plane->image.rect.x
-                            + (plane->image.rect.w - plane->shadow.rect.w) / 2
-                            + plane->shadowOffset.x;
+
 }
 
 void Plane_setY(Plane *plane, int y)
@@ -70,10 +63,17 @@ void Plane_setY(Plane *plane, int y)
     // Plane y coordinate
     plane->image.rect.y = y;
 
-    // Plane shadow y coordinate
-    plane->shadow.rect.y = plane->image.rect.y
-                            + (plane->image.rect.h - plane->shadow.rect.h) / 2
-                            + plane->shadowOffset.y;
+
+}
+
+void Plane_AI(Plane *plane, Defeat *defeat)
+{
+    if(plane->hp==0)
+    {
+       plane->destroyed=true;
+       defeat->shown=true;
+
+    }
 }
 
 void Plane_setCoordinates(Plane *plane, int x, int y)
@@ -87,24 +87,10 @@ void Plane_moveX(Plane *plane, int x)
     Plane_setX(plane, plane->image.rect.x + x);
 }
 
-void Plane_moveY(Plane *plane, int y)
-{
-    Plane_setY(plane, plane->image.rect.y + y);
-}
-
 void Plane_setDirection(Plane *plane, SDL_Keycode keycode)
 {
     switch (keycode)
     {
-    case SDLK_UP:
-        plane->direction &= ~DIRECTION_DOWN;
-        plane->direction |= DIRECTION_UP;
-        break;
-
-    case SDLK_DOWN:
-        plane->direction &= ~SDLK_UP;
-        plane->direction |= DIRECTION_DOWN;
-        break;
 
     case SDLK_RIGHT:
         plane->direction &= ~SDLK_LEFT;
@@ -122,14 +108,6 @@ void Plane_unsetDirection(Plane *plane, SDL_Keycode keycode)
 {
     switch (keycode)
     {
-    case SDLK_UP:
-        plane->direction &= ~DIRECTION_UP;
-        break;
-
-    case SDLK_DOWN:
-        plane->direction &= ~DIRECTION_DOWN;
-        break;
-
     case SDLK_RIGHT:
         plane->direction &= ~DIRECTION_RIGHT;
         break;
@@ -142,28 +120,39 @@ void Plane_unsetDirection(Plane *plane, SDL_Keycode keycode)
 
 void Plane_render(SDL_Renderer *renderer, Plane *plane)
 {
-    // Render plane shadow
-    Image_render(renderer, &plane->shadow);
 
-    // Render plane
+    if(plane->destroyed==false)
+    {
+        // Render plane
     Image_render(renderer, &plane->image);
+    }
 }
 
-void Plane_move(Plane *plane, int screenWidth, int screenHeight, int framerate)
+void Plane_move(Plane *plane, Ultimate *ultimate, Defeat *defeat, int screenWidth, int framerate, Animation *animation)
 {
     int planeStep = plane->speed / framerate;
 
-    if( (plane->direction & DIRECTION_UP)
-            && plane->image.rect.y - planeStep >= plane->margin)
+    if(ultimate->shown==true)
     {
-        Plane_moveY(plane, -planeStep);
-    }
-    else if( (plane->direction & DIRECTION_DOWN)
-             && plane->image.rect.y + plane->image.rect.h + planeStep <= screenHeight - plane->margin)
-    {
-        Plane_moveY(plane, planeStep);
-    }
+        for(int i=0; i<2; i++)
+        {
+        int plane_left_side = plane->image.rect.x;
+        int plane_right_side = plane->image.rect.x + plane->image.rect.w;
+        int ultimate_left_side = ultimate->image[i].rect.x + ULTIMATE_RANGE;
+        int ultimate_right_side = ultimate->image[i].rect.x + ultimate->image[i].rect.w - ULTIMATE_RANGE;
+        if((plane_right_side >= ultimate_left_side)&&(plane_left_side <= ultimate_right_side))
+        {
+            plane->hp=0;
+            defeat->shown=true;
+            for (int j=0 ; j<HEART_NUM  ;j++)
+        {
+            animation->heart[j].destroyed= true;
+        }
+        }
 
+
+    }
+    }
     if( (plane->direction & DIRECTION_RIGHT)
             && plane->image.rect.x + plane->image.rect.w + planeStep <= screenWidth - plane->margin)
     {
@@ -174,4 +163,5 @@ void Plane_move(Plane *plane, int screenWidth, int screenHeight, int framerate)
     {
         Plane_moveX(plane, -planeStep);
     }
+
 }

@@ -28,32 +28,41 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef VICTORY_H
+#define VICTORY_H
+#include <SDL_mixer.h>
+#include "utils.h"
+#include "image.h"
+typedef struct Animation Animation;
 
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
-
-
-enum Direction
+struct Victory
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Victory
+    Image image;
 
-#endif // UTILS_H
+    // Direction
+    Direction direction;
+
+    // Speed in pixel/second
+    int speed;
+
+    // Margin
+    int margin;
+
+    bool shown;
+
+    Mix_Chunk *bossdeath;
+
+
+};
+typedef struct Victory Victory;
+
+
+bool Victory_load(SDL_Renderer *renderer, Victory *victory, const char *image);
+void Victory_destroy(Victory *victory);
+void Victory_setX(Victory *victory, int x);
+void Victory_setY(Victory *victory, int y);
+void Victory_setCoordinates(Victory *victory, int x, int y);
+void Victory_render(SDL_Renderer *renderer, Victory *victory);
+
+#endif // Victory_H

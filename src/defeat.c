@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Amine Ben Hassouna <amine.benhassouna@gmail.com>
+ * Copyright (c) 2022 Amine Ben Hassouna <amine.benhassouna@gmail.com> Youssef Aydi <youssef.aydi@medtech.tn> Aymen Hammami <hammami.aym@outlook.com> Aziz Maazouz <aziz.maazouz@medtech.tn>
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any
@@ -28,32 +28,54 @@
  *
  */
 
-#ifndef UTILS_H
-#define UTILS_H
-
-#include <stdio.h>
-#include <stdbool.h>
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL2_framerate.h>
-
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
-#define COLOR_BREAKUP(COLOR)    COLOR.r, COLOR.g, COLOR.b, COLOR.a
-
-extern const SDL_Color COLOR_WHITE;
+#include "defeat.h"
+#include "animation.h"
+#include <SDL_mixer.h>
 
 
-enum Direction
+bool Defeat_load(SDL_Renderer *renderer, Defeat *defeat, const char *image)
 {
-    DIRECTION_STOP      = 0x0,
-    DIRECTION_UP        = 0x1,
-    DIRECTION_DOWN      = 0x2,
-    DIRECTION_RIGHT     = 0x4,
-    DIRECTION_LEFT      = 0x8
-};
-typedef enum Direction Direction;
+    // Load defeat image
+    if(!Image_load(renderer, &defeat->image, image))
+    {
+        return false;
+    }
 
-#endif // UTILS_H
+    defeat->shown = false;
+
+    return true;
+}
+
+void Defeat_destroy(Defeat *defeat)
+{
+    Image_destroy(&defeat->image);
+
+}
+
+void Defeat_setX(Defeat *defeat, int x)
+{
+    // Defeat x coordinate
+    defeat->image.rect.x = x;
+}
+
+void Defeat_setY(Defeat *defeat, int y)
+{
+    // Defeat y coordinate
+    defeat->image.rect.y = y;
+}
+
+void Defeat_setCoordinates(Defeat *defeat, int x, int y)
+{
+   Defeat_setX(defeat, x);
+   Defeat_setY(defeat, y);
+}
+void Defeat_render(SDL_Renderer *renderer, Defeat *defeat)
+{
+    if(defeat->shown)
+    {
+        // Render defeat
+        Image_render(renderer, &defeat->image);
+        Mix_HaltChannel(5);
+    }
+
+}

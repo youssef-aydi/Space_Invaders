@@ -28,19 +28,21 @@
  *
  */
 
-#ifndef PLANE_H
-#define PLANE_H
-#define ULTIMATE_RANGE   75  //Ultimate Difficulty: SMALLER---->HARDER
+#ifndef BOSS_H
+#define BOSS_H
 
 #include "utils.h"
 #include "image.h"
-#include "defeat.h"
-#include "ultimate.h"
+#include "plane.h"
+#include "victory.h"
+#include "bullet.h"
+#include "bullet2.h"
+#include "bossattack.h"
 #include <SDL_mixer.h>
 
-struct Plane
+struct Boss
 {
-    // Plane
+    // Boss
     Image image;
 
     // Direction
@@ -52,36 +54,35 @@ struct Plane
     // Margin
     int margin;
 
-    int score;
+    bool destroyed ;
+
+    bool shown;
+
+    bool aggro;
+
+    Mix_Chunk *bossappear;
 
     int hp;
 
-    int planecounter;
-
-    bool destroyed;
-
-
-
+    bool stage;
 
 };
-typedef struct Plane Plane;
+typedef struct Boss Boss;
 
 
-bool Plane_load(SDL_Renderer *renderer, Plane *plane, const char *image);
-void Plane_destroy(Plane *plane);
+bool Boss_load(SDL_Renderer *renderer, Boss *boss, const char *image);
+void Boss_destroy(Boss *boss);
 
-void Plane_setX(Plane *plane, int x);
-void Plane_setY(Plane *plane, int y);
-void Plane_AI(Plane *plane, Defeat *defeat);
-void Plane_setCoordinates(Plane *plane, int x, int y);
+void Boss_setX(Boss *boss, int x);
+void Boss_setY(Boss *boss, int y);
+void Boss_AI(Boss *boss, Bullet *bullet, Plane *plane, Bossattack *bossattack, Victory *victory, Defeat *defeat, Ultimate *ultimate);
+void Boss_AI2(Boss *boss, Bullet2 *bullet2, Plane *plane);
+void Boss_setCoordinates(Boss *boss, int x, int y);
+void Boss_moveX(Boss *boss, int x);
+void Ultimate_followDirection(Ultimate *ultimate, Boss *boss, Plane *plane);
+void Boss_followDirection(Boss *boss, Plane *plane);
+void Boss_moveY(Boss *boss, int y);
+void Boss_render(SDL_Renderer *renderer, Boss *boss);
+void Boss_move(Boss *boss, int screenWidth, int framerate, Plane *plane);
 
-void Plane_moveX(Plane *plane, int x);
-
-void Plane_move(Plane *plane, Ultimate *ultimate, Defeat *defeat, int screenWidth, int framerate, Animation *animation);
-
-void Plane_setDirection(Plane *plane, SDL_Keycode keycode);
-void Plane_unsetDirection(Plane *plane, SDL_Keycode keycode);
-
-void Plane_render(SDL_Renderer *renderer, Plane *plane);
-
-#endif // PLANE_H
+#endif // BOSS_H

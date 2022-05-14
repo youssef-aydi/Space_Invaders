@@ -1,7 +1,7 @@
-# Flying plane SDL2 animation
+# Space Invaders
 
 This project is written in C and uses [CMake][] as a build system.<br>
-It shows how we can make a basic animation using [SDL2][SDL] : Flying plane.
+It shows how we can make a basic arcade game using [SDL2][SDL].
 
 
 It could be used as a base for any SDL2 game. Just fork it, clone it and
@@ -64,6 +64,9 @@ See [IDE_USAGE.md](IDE_USAGE.md) for details.
 ## License
 
 Author: Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)
+        Youssef Aydi [@youssef-aydi](https://github.com/youssef-aydi)
+        Aymen Hammami [@aymendps](https://github.com/aymendps)
+        Aziz Maazouz [@aziz-maazouz](https://github.com/aziz-maazouz)
 
 This project is distributed under the terms of the MIT license
 [&lt;LICENSE&gt;](LICENSE).

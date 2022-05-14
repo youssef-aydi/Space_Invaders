@@ -70,19 +70,6 @@ This project is distributed under the terms of the MIT license
 [&lt;LICENSE&gt;](LICENSE).
 
 
-The images under the assets directory are distributed under different licenses:
-
-- `plane.png` and `plane-shadow.png`:<br>
-  Author: Amine B. Hassouna [@aminosbh](https://gitlab.com/aminosbh)<br>
-  License: [Creative Commons Attribution 4.0 International License.][CCBY]
-
-- `ocean.jpg`:<br>
-  Author: [the3rdSequence.com](https://www.the3rdsequence.com)<br>
-  License: [Creative Commons Attribution 4.0 International License.][CCBY]<br>
-  Site: https://www.the3rdsequence.com/texturedb/texture/23/sea+water
-
-
-
 [SDL]: https://www.libsdl.org
 [CMake]: https://cmake.org
 [Git]: https://git-scm.com

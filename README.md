@@ -34,6 +34,19 @@ sudo apt install git build-essential pkg-config cmake cmake-data libsdl2-dev lib
 ```sh
 sudo apt install libsdl2-ttf-dev libsdl2-net-dev libsdl2-mixer-dev
 ```
+## Contribution
+
+Thank you for your interest in our project. There are many ways to contribute,
+and we appreciate all of them :
+
+- Source code
+- Unit tests
+- Bug Reports
+- Documentation
+- Localization (Translation)
+- etc
+
+Contributions should be under the terms of the MIT license [&lt;LICENSE&gt;](LICENSE).
 
 ## How to build
  See [BUILD.md](BUILD.md)

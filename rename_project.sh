@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #
-# Copyright (c) 2019 Amine Ben Hassouna <amine.benhassouna@gmail.com>
+# Copyright (c) 2022 Amine Ben Hassouna <amine.benhassouna@gmail.com> Youssef Aydi <youssef.aydi@medtech.tn> Aymen Hammami <hammami.aym@outlook.com>
+# Aziz Maazouz <aziz.maazouz@medtech.tn>
 #
 # Permission is hereby granted, free of charge, to any
 # person obtaining a copy of this software and associated
@@ -87,9 +88,9 @@ echo
 echo -e "\e[31mDo you confirm your modifications ? [y/N]\e[0m"
 read RENAME_PROJECT
 if [ -n "$RENAME_PROJECT" ] && [ "$(echo "$RENAME_PROJECT" | tr a-z A-Z)" = "Y" ]; then
-    sed -i "s/Flying plane SDL2 animation/${PROJECT_NAME}/g" README.md rename_project.sh
-    sed -i "s/flying-plane-sdl-animation/${PROJECT_EXECUTABLE_NAME}/g" README.md IDE_USAGE.md CMakeLists.txt rename_project.sh
-    sed -i "s;https://gitlab.com/aminosbh/flying-plane-sdl-animation.git;${PROJECT_GIT_REPO};g" README.md rename_project.sh
+    sed -i "s/Space_Invaders/${PROJECT_NAME}/g" README.md rename_project.sh
+    sed -i "s/Space_Invaders/${PROJECT_EXECUTABLE_NAME}/g" README.md IDE_USAGE.md CMakeLists.txt rename_project.sh
+    sed -i "s;https://gitlab.com/aminosbh/Space_Invaders.git;${PROJECT_GIT_REPO};g" README.md rename_project.sh
     echo -e "\e[32mThe project was successfully renamed\e[0m"
 else
     echo -e "\e[33mOperation aborted\e[0m"

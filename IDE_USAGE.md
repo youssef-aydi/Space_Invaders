@@ -44,7 +44,7 @@ sudo apt install codeblocks
 
 ```sh
 # Create a folder for the Code::Blocks project
-cd flying-plane-sdl-animation
+cd Space_Invaders
 mkdir -p build/codeblocks
 cd build/codeblocks
 
@@ -53,7 +53,7 @@ cmake ../.. -G "CodeBlocks - Unix Makefiles"
 ```
 
 *Open the project:*<br>
-Run Code::Blocks, and open the project in `flying-plane-sdl-animation/build/codeblocks`.<br>
+Run Code::Blocks, and open the project in `Space_Invaders/build/codeblocks`.<br>
 Finally, build and run the project.
 
 
